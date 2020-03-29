@@ -26,8 +26,8 @@ float robotX, robotY;
 float laserX, laserY, laserSpeed, laserW, laserMaxW;
 
 void setup() {
-	size(640, 480, P2D);
-	// Enter Your Setup Code Here
+  size(640, 480, P2D);
+  // Enter Your Setup Code Here
   bgImg = loadImage("img/bg.jpg");
   groundhog = loadImage("img/groundhog.png");
   life = loadImage("img/life.png");
@@ -38,7 +38,7 @@ void setup() {
   groundhogX = width/2 - GROUNDHOG_W/2;
   groundhogY = ONE_BLOCK;
   
-  soldierX = floor(random(1,9))*ONE_BLOCK;
+  soldierX = 0;
   soldierY = floor(random(4))*ONE_BLOCK + ONE_BLOCK*2;
   soldierSpeed = 1;
   
@@ -47,13 +47,13 @@ void setup() {
   
   laserSpeed = 2;
   laserW = 0;
-  laserMaxW = -40;
+  laserMaxW = 40;
   laserX = robotX + 25;
   laserY = robotY + 37;
 }
 
 void draw() {
-	// Enter Your Code Here
+  // Enter Your Code Here
   image(bgImg, 0, 0, width, height);
   image(soil, 0, ONE_BLOCK*2, width, SOIL_H);
   
@@ -79,18 +79,18 @@ void draw() {
   //robot: laser
   noStroke();
   fill(255, 0, 0);
-  rect(laserX - laserW, laserY, laserW, LASER_H, 5);
+  rect(laserX, laserY, laserW, LASER_H, 5);
     
-  if(laserW >= laserMaxW){
-    laserW -= laserSpeed;
+  if(laserW <= laserMaxW){
+    laserW += laserSpeed;
   }
-  if(laserX - laserW > robotX - ONE_BLOCK*2 - laserW){
+  if(laserX > robotX - ONE_BLOCK*2){
     laserX -= laserSpeed;
   }else{
     laserX = robotX + 25;
     laserY = robotY + 37;
     laserW = 0;
-    laserW -= laserSpeed;
+    laserW += laserSpeed;
   }
   
   //robot
